@@ -1,0 +1,74 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>Product List</title>
+</head>
+<body>
+    <h2>Product List</h2>
+    <form method="get">
+        <input type="text" name="q" placeholder="Search products">
+        <button type="submit">Search</button>
+    </form>
+
+    <ul>
+        {% for product in page_obj %}
+            <li>{{ product.name }} - ${{ product.price }} - {{ product.category }}</li>
+        {% empty %}
+            <li>No products available.</li>
+        {% endfor %}
+    </ul>
+
+    <div>
+        <span>Page: {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+        <div>
+            <span>
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">First</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                {% endif %}
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">Next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product List</title>
+</head>
+<body>
+    <h2>Product List</h2>
+    <form method="get">
+        <input type="text" name="q" placeholder="Search..." value="{{ request.GET.q }}">
+        <button type="submit">Search</button>
+    </form>
+    <ul>
+        {% for product in page_obj.object_list %}
+            <li>{{ product.name }} - ${{ product.price }} - {{ product.category }}</li>
+        {% empty %}
+            <li>No products found.</li>
+        {% endfor %}
+    </ul>
+    <div>
+        <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+        <div>
+            <span>
+                {% if page_obj.has_previous %}
+                    <!-- <a href="?page=1&q={{ request.GET.q }}">First</a> -->
+                    <a href="?page={{ page_obj.previous_page_number }}&q={{ request.GET.q }}">Previous</a>
+                {% endif %}
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}&q={{ request.GET.q }}">Next</a>
+                    <!-- <a href="?page={{ page_obj.paginator.num_pages }}&q={{ request.GET.q }}">Last</a> -->
+                {% endif %}
+            </span>
+        </div>
+    </div>
+</body>
+</html>
